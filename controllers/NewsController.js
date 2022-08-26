@@ -22,7 +22,7 @@ const NewsController = {
 
   async getAllNews(req, res) {
     try {
-      const news = await News.find();
+      const news = await News.find({archived: false}).sort([['date', -1]]);
       res.send(news);
     } catch (error) {
       console.error(error);
