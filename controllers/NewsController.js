@@ -22,10 +22,11 @@ const NewsController = {
 
   async getAllNews(req, res) {
     try {
-      const news = await News.find({archived: false}).sort([['date', -1]]);
-      res.send(news);
+      const news = await News.find({ archived: false }).sort([["date", -1]]);
+      res.status(200).send(news);
     } catch (error) {
       console.error(error);
+      res.status(500).send("There was a problem fetching the news");
     }
   },
 
@@ -38,7 +39,7 @@ const NewsController = {
           { $set: { archiveDate: new Date(), archived: true } },
           { new: true }
         );
-        res.send({ news, message: "News archived" });
+        res.status(200).send({ news, message: "News archived" });
       } else {
         res.status(400).send({ message: "This news was already archived" });
       }
@@ -49,5 +50,30 @@ const NewsController = {
         .send({ message: "There was a problem trying to archive this news" });
     }
   },
+
+  async getAllArchived(req, res) {
+    try {
+      const news = await News.find({ archived: true }).sort([
+        ["archiveDate", -1],
+      ]);
+      res.status(200).send(news);
+    } catch (error) {
+      console.error(error);
+      res.status(500).send("There was a problem fetching the archived news");
+    }
+  },
+
+  async delete(req, res) {
+    try {
+      const news = await News.findByIdAndDelete(req.params._id);
+      res.status(200).send({ news, message: "News deleted" });
+    } catch (error) {
+      console.error(error);
+      res
+        .status(500)
+        .send({ message: "There was a problem trying to delete the news" });
+    }
+  },
 };
+
 module.exports = NewsController;
