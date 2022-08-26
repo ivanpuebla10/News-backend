@@ -1,9 +1,9 @@
-const express = require('express');
-const router = express.Router()
-const NewController = require('../controllers/NewController');
+const express = require("express");
+const router = express.Router();
+const NewsController = require("../controllers/NewsController");
 
-router.post('/',NewController.publish)
-router.get('/',NewController.getAllNews)
-router.put('/archive/:_id',NewController.archiveNews)
+router.post("/", NewsController.publish);
+router.get("/", NewsController.getAllNews);
+router.put("/archive/:_id", NewsController.archiveNews);
 
 module.exports = router;
