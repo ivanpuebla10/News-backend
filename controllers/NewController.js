@@ -20,5 +20,24 @@ const NewController ={
         }
     },
 
+    async archiveNews(req, res) {
+        try {
+            const found = await New.findById(req.params._id);
+            if (!found.archived) {
+              const news = await New.findByIdAndUpdate(
+                  req.params._id,
+                  { $set: { archived: true } },
+                  { new: true }
+                );
+            res.send({news, message:"News archived"});
+              }
+              else {
+                res.status(400).send({ message: "This news was already archived" });
+              }
+          } catch (error) {
+            console.error(error);
+            res.status(500).send({ message: "There was a problem trying to archive this news" });
+          }
+      },
 }
 module.exports = NewController;
