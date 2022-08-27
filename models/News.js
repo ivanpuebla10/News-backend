@@ -2,15 +2,27 @@ const mongoose = require("mongoose");
 
 const NewsSchema = new mongoose.Schema(
   {
-    title: String,
-    description: String,
+    title:{
+      type: String,
+      required: [true, "Please enter a title"],
+    },
+    description: {
+      type: String,
+      required: [true, "Please enter a description"],
+    },
     date: Date,
     images:[{
       type: String,
       default: ''
   }],
-    content: String,
-    author: String,
+    content: {
+      type: String,
+      required: [true, "Please enter the content"],
+    },
+    author: {
+      type: String,
+      required: [true, "Please enter the author"],
+    },
     archiveDate: Date,
     archived: Boolean,
   },

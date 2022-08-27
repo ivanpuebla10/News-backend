@@ -1,7 +1,7 @@
 const News = require("../models/News");
 
 const NewsController = {
-  async publish(req, res) {
+  async publish(req, res, next) {
     try {
       if (req.files) {
         const images = req.files.map((elem) => elem.filename);
@@ -17,10 +17,8 @@ const NewsController = {
         .status(201)
         .send({ news, message: "The news was published successfully." });
     } catch (error) {
-      console.error(error);
-      res
-        .status(500)
-        .send({ message: "There was a problem publishing the news" });
+      error.origin = 'news'
+      next(error)
     }
   },
 
