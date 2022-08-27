@@ -64,9 +64,13 @@ const NewsController = {
   },
 
   async delete(req, res) {
-    try {
+    try { 
+      const found = await News.findById(req.params._id);
+      if(!found) {
+        res.status(400).send("This news was already deleted");
+      }else{
       const news = await News.findByIdAndDelete(req.params._id);
-      res.status(200).send({ news, message: "News deleted" });
+      res.status(200).send({ news, message: "News deleted" });}
     } catch (error) {
       console.error(error);
       res
