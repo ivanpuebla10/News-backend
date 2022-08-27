@@ -4,7 +4,7 @@ const NewsController = require("../controllers/NewsController");
 const { uploadNewsImages } = require('../middlewares/multer');
 
 
-router.post("/", uploadNewsImages.single('image'), NewsController.publish);
+router.post("/", uploadNewsImages.array('images',3), NewsController.publish);
 router.get("/", NewsController.getAllNews);
 router.get("/archived", NewsController.getAllArchived);
 router.put("/archive/:_id", NewsController.archiveNews);

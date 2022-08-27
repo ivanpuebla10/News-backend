@@ -3,7 +3,10 @@ const News = require("../models/News");
 const NewsController = {
   async publish(req, res) {
     try {
-      if (req.file) req.body.image = req.file.filename;
+      if (req.files) {
+        const images = req.files.map((elem) => elem.filename);
+        req.body.images = images;
+      }
       const news = await News.create({
         ...req.body,
         date: new Date(),

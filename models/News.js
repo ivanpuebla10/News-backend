@@ -5,7 +5,10 @@ const NewsSchema = new mongoose.Schema(
     title: String,
     description: String,
     date: Date,
-    image: String,
+    images:[{
+      type: String,
+      default: ''
+  }],
     content: String,
     author: String,
     archiveDate: Date,
