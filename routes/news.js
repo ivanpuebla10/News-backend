@@ -1,8 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const NewsController = require("../controllers/NewsController");
+const { uploadNewsImages } = require('../middlewares/multer');
 
-router.post("/", NewsController.publish);
+
+router.post("/", uploadNewsImages.single('image'), NewsController.publish);
 router.get("/", NewsController.getAllNews);
 router.get("/archived", NewsController.getAllArchived);
 router.put("/archive/:_id", NewsController.archiveNews);
