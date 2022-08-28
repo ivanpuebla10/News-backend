@@ -3,18 +3,17 @@ const handleValidationError = (err, res) => {
     if(errors.length > 1) {
         let chain = "";
         for (let i = 0; i < errors.length; i++) {
-          chain += errors[i] + " || ";
+          chain += errors[i] + " , ";
         }
         const string = chain.slice(0, -4);
-        res.status(400).send({messages: string});
+        res.status(400).send({message: string});
     } else {
-        res.status(400).send({message: errors});
+        res.status(400).send({message: errors[0]});
     }
  } 
 
 const typeError = (err, req, res, next) => {
     const errOrigin = err.origin
-    console.log(err.origin)
     if(err.name === 'ValidationError') return err = handleValidationError(err, res);
     else
         if (errOrigin === undefined) {
