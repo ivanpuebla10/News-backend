@@ -3,10 +3,15 @@ const News = require("../models/News");
 const NewsController = {
   async publish(req, res, next) {
     try {
-      if (req.files) {
+      // if (req.files.length !== 0) {
+        console.log(req.files)
         const images = req.files.map((elem) => elem.filename);
         req.body.images = images;
-      }
+      // }else {
+      //   return res
+      //   .status(400)
+      //   .json({ message: "You must include at least 1 image" });
+      // } 
       const news = await News.create({
         ...req.body,
         date: new Date(),
@@ -78,6 +83,18 @@ const NewsController = {
       res
         .status(500)
         .send({ message: "There was a problem trying to delete the news" });
+    }
+  },
+
+  async getById(req, res) {
+    try {
+      const news = await News.findById(req.params._id);
+      res.send(news);
+    } catch (error) {
+      console.error(error);
+      res
+        .status(500)
+        .send({ message: "There was a problem trying to fetch the news" });
     }
   },
 };
