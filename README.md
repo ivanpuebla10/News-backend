@@ -10,6 +10,7 @@
 ## Geting Started 🚀
 - Clone this repository `https://github.com/ivanpuebla10/News-backend`
 - Install the dependencies `npm install`
+- Change the .env.example file to .env and within it set the MONGO_URI variable with your own database credentials.
 - Run the project `npm start`
 
 
