@@ -1,22 +1,19 @@
 const News = require("../models/News");
+const axios = require('axios');
 
 const NewsController = {
+  
   async publish(req, res, next) {
     try {
-      // if (req.files.length !== 0) {
-        console.log(req.files)
         const images = req.files.map((elem) => elem.filename);
         req.body.images = images;
-      // }else {
-      //   return res
-      //   .status(400)
-      //   .json({ message: "You must include at least 1 image" });
-      // } 
+
       const news = await News.create({
         ...req.body,
         date: new Date(),
         archiveDate: "",
         archived: false,
+        fetched: false
       });
       res
         .status(201)
@@ -97,6 +94,33 @@ const NewsController = {
         .send({ message: "There was a problem trying to fetch the news" });
     }
   },
+
+  async populateDB(req, res, next) {
+    try {
+      const resp = await axios.get('https://gnews.io/api/v4/search?q=example&lang=en&max=10&token=30478e61fa7d9ef38373fd98a5c04d90')
+      resp.data.articles.map(async (elem) =>
+      {
+        await News.create({
+        title: elem.title ? elem.title : 'No title provided',
+        description: elem.description ? elem.description : 'No description provided',
+        content: elem.content ? elem.content : 'No content provided',
+        author: elem.source?.name ? elem.source.name : 'No source provided',
+        date: new Date(),
+        archiveDate: "",
+        archived: false,
+        images: [elem.image? elem.image : 'https://images.ctfassets.net/mk9nps9h607g/5DnT6NoTCguwc4egkiGcIg/b3f22bef3f59efa5b8711c8268cde80a/news-placeholder.jpg'],
+        fetched: true
+      });
+    }
+      )
+      res
+        .status(201)
+        .send("Database populated.");
+    } catch (error) {
+      console.error(error)
+    }
+  },
+
 };
 
 module.exports = NewsController;
