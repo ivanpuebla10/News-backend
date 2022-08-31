@@ -1,12 +1,10 @@
 # News Test 
 
-## TECHNOLOGIES 🛠️
+## MAIN TECHNOLOGIES 🛠️
 - Nodejs
 - Express
 - Mongoose
 - MongoDB
-- Axios
-- Multer
 
 ### HOW TO RUN THIS PROJECT 🔧
 ## Geting Started 🚀
@@ -25,8 +23,7 @@
 * Archive news by id(Put): `http://localhost:5000/news/archive/:_id`
 * Delete new by id(Delete): `http://localhost:5000/news/:_id`
 
-### Previews
-#### Documentation
+### Documentation
 ```
 https://documenter.getpostman.com/view/19187499/VUxNSoBY
 ```
