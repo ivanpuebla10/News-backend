@@ -30,7 +30,7 @@ https://documenter.getpostman.com/view/19187499/VUxNSoBY
 
 
 ## Author ✒️
-* **Ivan Puebla** - *The Bridge* - [ivanpuebla10](https://github.com/ivanpuebla10)
+* **Ivan Puebla** - [ivanpuebla10](https://github.com/ivanpuebla10)
 
 
 
