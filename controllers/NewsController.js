@@ -97,7 +97,7 @@ const NewsController = {
 
   async populateDB(req, res, next) {
     try {
-      const resp = await axios.get('https://gnews.io/api/v4/search?q=example&lang=en&max=10&token=30478e61fa7d9ef38373fd98a5c04d90')
+      const resp = await axios.get('https://gnews.io/api/v4/search?q=example&lang=en&max=20&token=30478e61fa7d9ef38373fd98a5c04d90')
       resp.data.articles.map(async (elem) =>
       {
         await News.create({
