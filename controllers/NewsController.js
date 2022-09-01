@@ -1,26 +1,25 @@
 const News = require("../models/News");
-const axios = require('axios');
+const axios = require("axios");
 
 const NewsController = {
-  
   async publish(req, res, next) {
     try {
-        const images = req.files.map((elem) => elem.filename);
-        req.body.images = images;
+      const images = req.files.map((elem) => elem.filename);
+      req.body.images = images;
 
       const news = await News.create({
         ...req.body,
         date: new Date(),
         archiveDate: "",
         archived: false,
-        fetched: false
+        fetched: false,
       });
       res
         .status(201)
         .send({ news, message: "The news was published successfully." });
     } catch (error) {
-      error.origin = 'news'
-      next(error)
+      error.origin = "news";
+      next(error);
     }
   },
 
@@ -68,13 +67,14 @@ const NewsController = {
   },
 
   async delete(req, res) {
-    try { 
+    try {
       const found = await News.findById(req.params._id);
-      if(!found) {
+      if (!found) {
         res.status(400).send("This news was already deleted");
-      }else{
-      const news = await News.findByIdAndDelete(req.params._id);
-      res.status(200).send({ news, message: "News deleted" });}
+      } else {
+        const news = await News.findByIdAndDelete(req.params._id);
+        res.status(200).send({ news, message: "News deleted" });
+      }
     } catch (error) {
       console.error(error);
       res
@@ -97,30 +97,31 @@ const NewsController = {
 
   async populateDB(req, res, next) {
     try {
-      const resp = await axios.get('https://gnews.io/api/v4/search?q=example&lang=en&max=20&token=30478e61fa7d9ef38373fd98a5c04d90')
-      resp.data.articles.map(async (elem) =>
-      {
+      const resp = await axios.get(
+        "https://gnews.io/api/v4/search?q=example&lang=en&max=20&token=30478e61fa7d9ef38373fd98a5c04d90"
+      );
+      resp.data.articles.map(async (elem) => {
         await News.create({
-        title: elem.title ? elem.title : 'No title provided',
-        description: elem.description ? elem.description : 'No description provided',
-        content: elem.content ? elem.content : 'No content provided',
-        author: elem.source?.name ? elem.source.name : 'No source provided',
-        date: new Date(),
-        archiveDate: "",
-        archived: false,
-        images: [elem.image? elem.image : 'https://images.ctfassets.net/mk9nps9h607g/5DnT6NoTCguwc4egkiGcIg/b3f22bef3f59efa5b8711c8268cde80a/news-placeholder.jpg'],
-        fetched: true
+          title: elem.title ? elem.title : "No title provided",
+          description: elem.description
+            ? elem.description
+            : "No description provided",
+          content: elem.content ? elem.content : "No content provided",
+          author: elem.source?.name ? elem.source.name : "No source provided",
+          date: new Date(),
+          archiveDate: "",
+          archived: false,
+          images: elem.image
+            ? elem.image
+            : "https://images.ctfassets.net/mk9nps9h607g/5DnT6NoTCguwc4egkiGcIg/b3f22bef3f59efa5b8711c8268cde80a/news-placeholder.jpg",
+          fetched: true,
+        });
       });
-    }
-      )
-      res
-        .status(201)
-        .send("Database populated.");
+      res.status(201).send("Database populated.");
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
   },
-
 };
 
 module.exports = NewsController;
