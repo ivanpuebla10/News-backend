@@ -11,4 +11,5 @@ router.delete("/:_id", NewsController.delete);
 router.get("/detail/:_id", NewsController.getById);
 router.get("/populate", NewsController.populateDB);
 
+
 module.exports = router;

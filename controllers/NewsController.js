@@ -95,7 +95,7 @@ const NewsController = {
     }
   },
 
-  async populateDB(req, res, next) {
+  async populateDB(req, res) {
     try {
       const resp = await axios.get(
         "https://gnews.io/api/v4/search?q=example&lang=en&max=20&token=30478e61fa7d9ef38373fd98a5c04d90"

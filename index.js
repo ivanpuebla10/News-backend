@@ -14,4 +14,5 @@ dbConnection();
 app.use("/news", require("./routes/news"));
 app.use(typeError);
 
+
 app.listen(PORT, console.log(`Server started on port ${PORT}`));

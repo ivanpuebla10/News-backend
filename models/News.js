@@ -5,7 +5,7 @@ const NewsSchema = new mongoose.Schema(
     title: {
       type: String,
       required: [true, "Please enter a title"],
-      minlength: [10, "Title must contain more than 10 characters"],
+      minlength: [10, "TITLE must contain more than 10 characters"],
     },
     description: {
       type: String,
