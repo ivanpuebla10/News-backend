@@ -16,13 +16,13 @@
 
 ## Basic endpoints
 
-* Get all no archived news in db(Get): `http://localhost:5000/news`
-* Get all archived news in db(Get): `http://localhost:5000/news/archived`
-* Get news by id(Get): `http://localhost:5000/news/detail/:_id`
-* Populate DB(Get): `http://localhost:5000/news/populate`
-* Publish news(Post): `http://localhost:5000/news`
-* Archive news by id(Put): `http://localhost:5000/news/archive/:_id`
-* Delete new by id(Delete): `http://localhost:5000/news/:_id`
+* Get all no archived news in db(GET): `http://localhost:5000/news`
+* Get all archived news in db(GET): `http://localhost:5000/news/archived`
+* Get news by id(GET): `http://localhost:5000/news/detail/:_id`
+* Populate DB(GET): `http://localhost:5000/news/populate`
+* Publish news(POST): `http://localhost:5000/news`
+* Archive news by id(PUT): `http://localhost:5000/news/archive/:_id`
+* Delete new by id(DELETE): `http://localhost:5000/news/:_id`
 
 ### Documentation
 ```
