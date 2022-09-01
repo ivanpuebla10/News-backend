@@ -17,7 +17,7 @@ const typeError = (err, req, res, next) => {
     if(err.name === 'ValidationError') return err = handleValidationError(err, res);
     else
         if (errOrigin === undefined) {
-            res.status(500).send('Unknown  error');
+            res.status(500).send({message: 'Unknown  error'});
         } else {
             res.status(500).send(`There was a problem trying to create the ${errOrigin}`);
         }  
